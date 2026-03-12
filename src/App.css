@@ -1,0 +1,226 @@
+@font-face {
+  font-family: "Roboto-Mono";
+  src: url("./assets/fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf") format("truetype");
+  font-weight: 400;
+  font-style: medium;
+  font-display: swap;
+}
+
+#root {
+  width: 100%;
+  background: #f6f6f6;
+  margin-bottom: auto;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+
+.image {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: #c4c4c4;
+}
+
+.flex_simple {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 18px;
+}
+
+.spin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.grey {
+  color: #999999;
+}
+
+.price{
+  font-family: "Roboto-Mono";
+}
+
+p.grey {
+  font-size: 14px;
+}
+
+.red {
+  color: red;
+}
+
+.white {
+  background: white;
+  margin-top: 20px;
+  padding: 30px;
+}
+
+.ant-table-content {
+  margin: 40px 0;
+}
+
+.ant-table-content .ant-btn-default {
+  border-radius: 50%;
+  height: 26px;
+  width: 26px;
+  padding: 2px;
+  color: #b2b3b9;
+}
+
+.ant-table-content .ant-btn-primary {
+  border-radius: 23px;
+  height: 26px;
+  width: 52px;
+}
+
+.ant-table-thead th {
+  background: white;
+}
+
+.ant-table-row-selected .ant-table-cell:first-child {
+  border-left: 4px solid #3c538e;
+}
+
+.ant-checkbox-checked {
+  background-color: #3c538e;
+  border-color: #3c538e;
+}
+
+.ant-pagination .ant-pagination-item {
+  background-color: white;
+  border-color: #b2b3b9;
+}
+
+.ant-pagination .ant-pagination-item a {
+  color: #b2b3b9;
+  font-weight: 100;
+}
+
+.ant-pagination .ant-pagination-item-active {
+  background-color: #797fea;
+  border-color: #797fea;
+}
+
+.ant-pagination .ant-pagination-item-active a {
+  color: white;
+  font-weight: 100;
+}
+
+.counter {
+  font-size: 18px;
+  position: relative;
+  top: -46px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.ant-input-affix-wrapper,
+.ant-input-search-btn,
+.ant-space-addon {
+  border: none;
+  background: #f3f3f3;
+}
+
+.ant-input-affix-wrapper:hover,
+.ant-input-search-btn:hover,
+.ant-space-addon:hover,
+.ant-btn:not(:disabled):not(.ant-btn-disabled):hover,
+.ant-input-outlined:focus,
+:where(.css-dev-only-do-not-override-1daqxe2).ant-input-outlined:focus-within {
+  border: none;
+  background: #f3f3f3;
+}
+
+.ant-space-compact {
+  width: 100%;
+}
+
+.search {
+  width: 50%;
+  margin: auto;
+}
+
+.login-form .ant-card .ant-card-body {
+  border-radius: 35px;
+  padding: 48px;
+  border: 1px solid rgba(198, 198, 198, 0.384);
+  background: #f9f9f9;
+  font-weight: 500;
+}
+
+.ant-card {
+  border-radius: 40px;
+  padding: 6px;
+  box-shadow: 0px 24px 32px 0px rgba(0, 0, 0, 0.04);
+}
+
+.login-form {
+  display: flex;
+  justify-content: center;
+  margin: 80px auto;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 54px;
+  border-radius: 12px;
+}
+
+.login-form label {
+  font-size: 18px;
+  padding-bottom: 3px;
+}
+
+.grey-title {
+  font-size: 18px;
+  color: #e0e0e0;
+}
+
+.login-form .ant-card .ant-card-body .ant-input-affix-wrapper {
+  height: 55px;
+  background: white;
+  border: 1px solid rgba(198, 198, 198, 0.384);
+  background: #f9f9f9;
+}
+
+.login-form .ant-card .ant-card-body a{
+  text-decoration: underline;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.separator::before,
+.separator::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+}
+
+.separator::before {
+  margin-right: 1em;
+}
+
+.separator::after {
+  margin-left: 1em;
+}
+
+.separator span {
+  color: #666;
+  font-size: 14px;
+}
