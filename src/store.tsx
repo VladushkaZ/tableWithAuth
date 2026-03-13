@@ -97,7 +97,7 @@ const useStore = create<State>()(
       };
       try {
         const response = await axios.post(
-          `https://cors-anywhere.herokuapp.com/https://dummyjson.com/auth/login`,
+          `https://dummyjson.com/auth/login`,
           body,
         );
         set({
@@ -137,7 +137,7 @@ const useStore = create<State>()(
       const token = Cookies.get("token");
       try {
         const response = await axios.get(
-          `https://cors-anywhere.herokuapp.com/https://dummyjson.com/products/search?${searchQuery}`,
+          `https://dummyjson.com/products/search?${searchQuery}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
