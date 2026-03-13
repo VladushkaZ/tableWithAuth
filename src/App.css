@@ -65,6 +65,10 @@ p.grey {
   padding: 30px;
 }
 
+.white:first-child{
+  margin-bottom: 30px;
+}
+
 .ant-table-content {
   margin: 40px 0;
 }
