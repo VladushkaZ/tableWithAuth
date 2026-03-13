@@ -5,6 +5,7 @@ import { PlusCircleOutlined, SearchOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import useStore from "../store";
 import { AddItemModal } from "../components/AddItem";
+import { RemoveItemModal } from "../components/RemoveItem";
 
 export const Main = () => {
   const { setPage, setOpenModal, loading, error } = useStore();
@@ -40,7 +41,7 @@ export const Main = () => {
         <div className="flex">
           <h3>Все позиции</h3>
           {!loading && !error && (
-            <Button type="primary" onClick={() => setOpenModal(true)}>
+            <Button type="primary" onClick={() => setOpenModal({open:true})}>
               <PlusCircleOutlined /> Добавить
             </Button>
           )}
@@ -48,6 +49,7 @@ export const Main = () => {
         <CustomTable search={search} />
       </div>
       <AddItemModal />
+      <RemoveItemModal/>
     </>
   );
 }

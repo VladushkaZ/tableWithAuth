@@ -3,14 +3,16 @@ import useStore from "../store";
 import {
   Alert,
   Button,
+  Dropdown,
   Progress,
   Spin,
   Table,
+  type MenuProps,
   type TableColumnsType,
   type TableProps,
 } from "antd";
 import type { TableRowSelection } from "antd/es/table/interface";
-import { EllipsisOutlined, PlusOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EllipsisOutlined, PlusOutlined } from "@ant-design/icons";
 import LoadedImage from "./LoadedImage";
 
 interface Item {
@@ -38,8 +40,11 @@ const CustomTable: React.FC<Props> = ({ search }: Props) => {
     searchString,
     sortParams,
     setSortParams,
+    setOpenModal,
+    setOpenRemoveModal
   } = useStore();
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const [current, setCurrent] = useState<Item>();
   const pageSize = 20;
 
   useEffect(() => {
@@ -66,6 +71,26 @@ const CustomTable: React.FC<Props> = ({ search }: Props) => {
     selectedRowKeys,
     onChange: onSelectChange,
   };
+
+  const items: MenuProps['items'] = [
+  {
+    key: '1',
+    label: (
+      <Button onClick={() => current && setOpenModal({open: true, item:current})}>
+        Изменить
+      </Button>
+    ),
+  },
+  {
+    key: '2',
+    label: (
+      <Button onClick={() => current && setOpenRemoveModal({open: true, item:current})}>
+        <DeleteOutlined />
+        Удалить
+      </Button>
+    ),
+  },
+];
 
   const dataSource = currentData?.map<Item>((item, i) => ({
     key: i,
@@ -151,14 +176,16 @@ const CustomTable: React.FC<Props> = ({ search }: Props) => {
       title: "",
       key: "key",
       width: 20,
-      render: () => (
+      render: (_, item) => (
         <div className="flex_simple">
           <Button type="primary">
             <PlusOutlined />
           </Button>
-          <Button>
-            <EllipsisOutlined />
-          </Button>
+          <Dropdown menu={{ items }} placement="bottomLeft" onOpenChange={()=>setCurrent(item)}>
+            <Button>
+              <EllipsisOutlined />
+            </Button>
+          </Dropdown>
         </div>
       ),
     },
@@ -171,12 +198,16 @@ const CustomTable: React.FC<Props> = ({ search }: Props) => {
   ) => {
     console.log("params", pagination, filters, sorter, extra);
     setSortParams({
-      sortOrder: Array.isArray(sorter) || Object.keys(sorter).length == 0
-        ? sortParams.sortOrder
-        : sorter.order == "ascend"
-          ? "asc"
-          : "desc",
-      sortField: Array.isArray(sorter) || Object.keys(sorter).length == 0 ? sortParams.sortField : sorter.field,
+      sortOrder:
+        Array.isArray(sorter) || Object.keys(sorter).length == 0
+          ? sortParams.sortOrder
+          : sorter.order == "ascend"
+            ? "asc"
+            : "desc",
+      sortField:
+        Array.isArray(sorter) || Object.keys(sorter).length == 0
+          ? sortParams.sortField
+          : sorter.field,
     });
   };
   return (

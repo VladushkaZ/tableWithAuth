@@ -9,7 +9,7 @@ interface Item {
   id: number;
   title: string;
   price: number;
-  [key: string]: string | number;
+  [key: string]: string | number | string[];
 }
 
 interface Cache {
@@ -31,6 +31,11 @@ interface LoginValues {
   remember?: boolean;
 }
 
+interface OpenModal{
+  open: boolean;
+  item?: Item
+}
+
 interface State {
   items: Item[];
   loading: boolean;
@@ -40,7 +45,8 @@ interface State {
   cache: Cache;
   currentPage: number;
   searchString: string;
-  openModal: boolean;
+  openModal: OpenModal;
+  openRemoveModal: OpenModal;
   sortParams: Sort;
   isAuth: boolean;
   token: string;
@@ -49,7 +55,8 @@ interface State {
   addItem: (item: Item) => void;
   setPage: (page: number) => void;
   setRemember: (remember: boolean) => void;
-  setOpenModal: (openModal: boolean) => void;
+  setOpenModal: (openModal: OpenModal) => void;
+  setOpenRemoveModal: (openModal: OpenModal) => void;
   removeItem: (id: number) => void;
   login: (values: LoginValues) => void;
   getItems: (
@@ -72,7 +79,8 @@ const useStore = create<State>()(
     total: {},
     token: "",
     sortParams: {},
-    openModal: false,
+    openModal: {open: false},
+    openRemoveModal: {open: false},
     isAuth: false,
     remember: true,
     login: async (values) => {
@@ -89,7 +97,7 @@ const useStore = create<State>()(
       };
       try {
         const response = await axios.post(
-          `https://dummyjson.com/auth/login`,
+          `https://cors-anywhere.herokuapp.com/https://dummyjson.com/auth/login`,
           body,
         );
         set({
@@ -129,7 +137,7 @@ const useStore = create<State>()(
       const token = Cookies.get("token");
       try {
         const response = await axios.get(
-          `https://dummyjson.com/products/search?${searchQuery}`,
+          `https://cors-anywhere.herokuapp.com/https://dummyjson.com/products/search?${searchQuery}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -184,6 +192,7 @@ const useStore = create<State>()(
     setPage: (page) => set({ currentPage: page }),
     setRemember: (remember) => set({ remember: remember }),
     setOpenModal: (openModal) => set({ openModal: openModal }),
+    setOpenRemoveModal: (openModal) => set({ openRemoveModal: openModal }),
     setSortParams: (sort) => set({ sortParams: sort }),
   })),
 );

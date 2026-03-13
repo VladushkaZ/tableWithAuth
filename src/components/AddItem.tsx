@@ -1,35 +1,53 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useStore from "../store";
 import { Input, InputNumber, Modal, notification } from "antd";
 
 export const AddItemModal = () => {
+  const { openModal, setOpenModal, addItem } = useStore();
   const [name, setName] = useState("");
   const [coast, setCoast] = useState<number | null>(null);
-  const [vendor, setVendor] = useState("");
-  const [art, setArt] = useState("");
-  const { openModal, setOpenModal, addItem } = useStore();
+  const [vendor, setVendor] = useState<string | number | string[]>("");
+  const [art, setArt] = useState<string | number | string[]>("");
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [api, contextHolder] = notification.useNotification();
 
+  const clear = () => {
+    setName("");
+    setArt("");
+    setCoast(null);
+    setVendor("");
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (openModal?.item) {
+        setName(openModal?.item?.title);
+        setArt(openModal?.item?.sku);
+        setCoast(openModal?.item?.price);
+        setVendor(openModal?.item?.brand);
+      } else clear();
+    }, 100);
+  }, [openModal.item]);
+
   const handleOk = () => {
-    addProd();
+    if (!openModal.item) addProd();
     setConfirmLoading(true);
     setTimeout(() => {
-      setOpenModal(false);
       openNotification();
       setConfirmLoading(false);
+      setOpenModal({ open: false });
     }, 1000);
   };
 
   const openNotification = () => {
     api["success"]({
       title: "Успех",
-      description: "Ваш продукт успешно добавлен",
+      description: "Данные успешно сохранены",
     });
   };
 
   const handleCancel = () => {
-    setOpenModal(false);
+    setOpenModal({ open: false });
   };
 
   const addProd = () => {
@@ -44,26 +62,20 @@ export const AddItemModal = () => {
     clear();
   };
 
-  const clear = () => {
-    setName("");
-    setArt("");
-    setCoast(null);
-    setVendor("");
-  };
-
   return (
     <>
       {contextHolder}
       <Modal
-        title="Добавить продукт"
-        open={openModal}
+        title={openModal.item ? "Изменить продукт" : "Добавить продукт"}
+        open={openModal.open}
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
         okText="Сохранить"
         cancelText="Отмена"
         okButtonProps={{
-          disabled: !(name.length > 0) && !(art.length > 0) && coast == null,
+          disabled:
+            !(name.length > 0) && !(art.toString().length > 0) && coast == null,
         }}
       >
         <label>Наименование</label>
